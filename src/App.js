@@ -13,7 +13,8 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/login" element={<Loginpage />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={!isAuthenticated() ? <Navigate to="/login" /> : <div> Logged in </div>} />
+        // TODO: Change this for when user is already logged in
       </Routes>
     </Router>
   );
