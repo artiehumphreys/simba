@@ -9,15 +9,16 @@ const isAuthenticated = () => {
 };
 
 const App = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Loginpage />} />
-        <Route path="/" element={!isAuthenticated() ? <Navigate to="/login" /> : <div> Logged in </div>} />
-        // TODO: Change this for when user is already logged in
-      </Routes>
-    </Router>
-  );
+  if (!isAuthenticated()) {
+    return (
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Loginpage />} />
+          <Route path="/" element={<Navigate to="/login" />} />
+        </Routes>
+      </Router>
+    );
+  }
 };
 
 export default App;

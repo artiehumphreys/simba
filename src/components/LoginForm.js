@@ -1,10 +1,25 @@
 import React from 'react';
+import Home from '../App'
 import styles from './LoginForm.module.css';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+
 
 function LoginForm() {
     const handleSubmit = (event) => {
         event.preventDefault();
         // Handle login logic here
+        const username = document.getElementById('username');
+        const password = document.getElementById('password');
+        if (username.value === "admin" && password.value === "admin") {
+            return (
+                <Router>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/login" element={<Navigate to="/" />} />
+                    </Routes>
+                </Router>
+            );
+        }
     };
 
     return (
