@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Loginpage from './pages/Loginpage';
+import HomePage from './pages/HomePage';
 
 //TODO: Implement login logic
 //Use protected routes.
@@ -15,6 +16,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Loginpage />} />
           <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/home" element={<HomePage />} />
         </Routes>
       </Router>
     );
