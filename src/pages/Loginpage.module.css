@@ -1,6 +1,6 @@
 .formContainer {
     display: flex;
-    flexDirection: column;
+    flex-direction: column;
     width: 300px;
     margin: auto;
     background-color: #121212;
