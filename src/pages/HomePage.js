@@ -3,7 +3,8 @@ import PauseIcon from '../icons/PauseIcon';
 import PlayIcon from '../icons/PlayIcon';
 import Home from '../icons/Home';
 import Search from '../icons/Search';
-import Library from '../icons/Library'
+import Library from '../icons/Library';
+import Volume from '../icons/Volume';
 import styles from './HomePage.module.css';
 const logoPath = process.env.PUBLIC_URL + '/simba_logo.png';
 
@@ -40,7 +41,7 @@ function HomePage() {
             <button>
                 <PlayIcon></PlayIcon>
             </button>
-            <div>Volume...</div>
+            <div><Volume> </Volume></div>
         </div>
 
     </body>);
