@@ -1,4 +1,6 @@
 import React from 'react';
+import PauseIcon from '../icons/PauseIcon';
+import PlayIcon from '../icons/PlayIcon';
 import styles from './HomePage.module.css';
 const logoPath = process.env.PUBLIC_URL + '/simba_logo.png';
 
@@ -29,9 +31,6 @@ function HomePage() {
                             <span>Your Library</span></button>
                     </div>
                 </div>
-                <div>
-                    <button class="text-left hover:bg-gray-700 p-2 rounded">Settings</button>
-                </div>
             </div>
         </aside>
 
@@ -39,9 +38,11 @@ function HomePage() {
             <div class="bg-gray-800 p-4 rounded-lg">Main content</div>
         </div>
 
-        <div class="absolute bottom-0 left-0 right-0 flex items-center justify-between bg-gray-800 h-24 px-8">
+        <div class="absolute bottom-0 left-0 right-0 flex items-center justify-between bg-gray-800 h-16 px-8">
             <div>Playing now...</div>
-            <div>Player controls</div>
+            <button>
+                <PlayIcon></PlayIcon>
+            </button>
             <div>Volume...</div>
         </div>
 
