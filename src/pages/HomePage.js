@@ -36,15 +36,17 @@ function HomePage() {
             <div class="bg-gray-800 p-4 rounded-lg">Main content</div>
         </div>
 
-        <div class="absolute bottom-0 left-0 right-0 flex items-center justify-between bg-gray-800 h-16 px-8">
+        <div class="absolute bottom-0 left-0 right-0 flex items-center justify-between bg-gray-800 h-20 px-8">
             <div>Playing now...</div>
             <button>
                 <PlayIcon></PlayIcon>
             </button>
-            <div><Volume> </Volume></div>
+            <div class="flex justify-between"><Volume> </Volume>
+                <input type="range" min="1" max="100" id="input" style={styles.input}>
+                </input></div>
         </div>
 
-    </body>);
+    </body >);
 }
 
 export default HomePage;
