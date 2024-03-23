@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginForm from '../components/LoginForm';
-import styles from './Loginpage.module.css';
+import styles from '../css/Loginpage.module.css';
 const logoPath = process.env.PUBLIC_URL + '/simba_logo.png';
 //Logo is (0, 140, 180)
 

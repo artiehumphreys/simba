@@ -5,7 +5,7 @@ import Home from '../icons/Home';
 import Search from '../icons/Search';
 import Library from '../icons/Library';
 import Volume from '../icons/Volume';
-import styles from './HomePage.module.css';
+import styles from '../css/HomePage.module.css';
 const logoPath = process.env.PUBLIC_URL + '/simba_logo.png';
 
 
