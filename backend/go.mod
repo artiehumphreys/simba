@@ -3,9 +3,11 @@ module simba
 go 1.22.1
 
 require (
-	github.com/golang/protobuf v1.2.0 // indirect
-	github.com/zmb3/spotify v1.3.0 // indirect
-	golang.org/x/net v0.0.0-20190108225652-1e06a53dbb7e // indirect
-	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d // indirect
-	google.golang.org/appengine v1.4.0 // indirect
+	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/joho/godotenv v1.5.1 // indirect
+	github.com/zmb3/spotify/v2 v2.4.1 // indirect
+	golang.org/x/net v0.17.0 // indirect
+	golang.org/x/oauth2 v0.0.0-20210810183815-faf39c7919d5 // indirect
+	google.golang.org/appengine v1.6.7 // indirect
+	google.golang.org/protobuf v1.27.1 // indirect
 )
