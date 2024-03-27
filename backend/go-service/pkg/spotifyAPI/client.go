@@ -2,11 +2,11 @@ package main
 
 import (
 	"context"
+	"io"
 	"log"
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/zmb3/spotify/v2"
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
 	"golang.org/x/oauth2/clientcredentials"
 )
@@ -25,13 +25,17 @@ func main() {
 		log.Fatalf("Couldn't get token: %v", err)
 	}
 	httpClient := spotifyauth.New().Client(context.Background(), token)
-	client := spotify.New(httpClient)
-	playlistID := spotify.ID("37i9dQZF1DXcBWIGoYBM5M")
-	playlist, err := client.GetPlaylist(context.Background(), playlistID)
+	//client := spotify.New(httpClient)
+	fetchedPlaylists, err := httpClient.Get("https://api.spotify.com/v1/browse/featured-playlists")
 	if err != nil {
 		log.Fatalf("error retrieving playlist data: %v", err)
 	}
-	log.Println("playlist id:", playlist.ID)
-	log.Println("playlist name:", playlist.Name)
-	log.Println("playlist description:", playlist.Description)
+	defer fetchedPlaylists.Body.Close()
+	bodyBytes, err := io.ReadAll(fetchedPlaylists.Body)
+	if err != nil {
+		log.Fatalf("Failed to read response body: %v", err)
+	}
+	bodyString := string(bodyBytes)
+	log.Println("featured playlists:", bodyString)
+	log.Println("featured playlists:", string(bodyBytes))
 }
