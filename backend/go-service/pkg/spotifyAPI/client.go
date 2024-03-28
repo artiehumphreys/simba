@@ -8,8 +8,7 @@ import (
 
 	"encoding/json"
 	"fmt"
-
-	"simba/backend/go-service/pkg/models"
+	"simba/go-service/pkg/models"
 
 	"github.com/joho/godotenv"
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
@@ -40,16 +39,14 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to read response body: %v", err)
 	}
-	var playlistObject models.Playlist
-	error := json.Unmarshal(bodyBytes, &playlistObject)
-	if err != nil {
-		fmt.Println("Error:", error)
-		return
+	var response models.FeaturedPlaylistsResponse
+	if err := json.Unmarshal(bodyBytes, &response); err != nil {
+		log.Fatalf("Error unmarshalling JSON: %v", err)
 	}
-	log.Println(playlistObject, playlistObject.Description)
-	// bodyString := string(bodyBytes)
-	// for x, playlist := range bodyString {
-	// 	log.Println(x, ":", playlist)
-	// }
-	// log.Println("featured playlists:", bodyString)
+
+	for _, playlist := range response.Playlists.Items {
+		fmt.Println(playlist.Name)
+	}
+	//bodyString := string(bodyBytes)
+	//log.Println("featured playlists:", bodyString)
 }
