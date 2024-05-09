@@ -46,15 +46,16 @@ function HomePage() {
             </div>
         </aside>
 
-        <div className="flex-grow p-8 overflow-auto">
-            <div className="bg-gray-800 p-4 rounded-lg">
-                {error && <div>Error fetching playlists: {error.message}</div>}
+        <div className="flex-grow w-10/12 p-8 overflow-y-auto mb-20">
+            {error && <div className="text-red-500">Error fetching playlists: {error.message}</div>}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {playlists && playlists.map((playlist, index) => (
-                    <div key={index} className="mb-4">
+                    <div key={index} className="bg-gray-800 p-4 rounded-lg cursor-pointer transform transition duration-200 hover:scale-105 w-full md:w-auto">
                         {playlist.images && playlist.images[0] && (
-                            <img src={playlist.images[0].url} alt={playlist.name} className="w-48 h-48" />
+                            <img src={playlist.images[0].url} alt={playlist.name}
+                                 className="w-full aspect-square object-cover rounded-lg" />
                         )}
-                        <h3>{playlist.name}</h3>
+                        <h3 className="mt-2 text-center text-white">{playlist.name}</h3>
                     </div>
                 ))}
             </div>
