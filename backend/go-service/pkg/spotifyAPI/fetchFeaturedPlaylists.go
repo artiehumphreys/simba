@@ -16,7 +16,7 @@ import (
 )
 
 func main() {
-	if err := godotenv.Load("../../../../.env"); err != nil {
+	if err := godotenv.Load("../../../.env"); err != nil {
 		log.Fatalf("Error loading .env file: %v", err)
 	}
 	authConfig := &clientcredentials.Config{
@@ -45,7 +45,8 @@ func main() {
 	}
 
 	for _, playlist := range response.Playlists.Items {
-		fmt.Println(playlist.Name)
+		fmt.Println(playlist)
+		fmt.Println(playlist.Images[0].URL)
 	}
 	//bodyString := string(bodyBytes)
 	//log.Println("featured playlists:", bodyString)
