@@ -1,53 +1,30 @@
-package main
+package spotifyapi
 
 import (
-	"context"
 	"io"
-	"log"
-	"os"
+	"net/http"
 
 	"encoding/json"
 	"fmt"
 	"simba/go-service/pkg/models"
-
-	"github.com/joho/godotenv"
-	spotifyauth "github.com/zmb3/spotify/v2/auth"
-	"golang.org/x/oauth2/clientcredentials"
 )
 
-func main() {
-	if err := godotenv.Load("../../../.env"); err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
-	}
-	authConfig := &clientcredentials.Config{
-		ClientID:     os.Getenv("SPOTIFY_CLIENT_ID"),
-		ClientSecret: os.Getenv("SPOTIFY_CLIENT_SECRET"),
-		TokenURL:     spotifyauth.TokenURL,
-	}
-	token, err := authConfig.Token(context.Background())
+func FetchFeaturedPlaylists(client *http.Client) ([]models.Playlist, error) {
+	fetch, err := client.Get("https://api.spotify.com/v1/browse/featured-playlists")
 	if err != nil {
-		log.Fatalf("Couldn't get token: %v", err)
+		return nil, fmt.Errorf("error retrieving playlist data: %v", err)
 	}
-	httpClient := spotifyauth.New().Client(context.Background(), token)
-	//client := spotify.New(httpClient)
-	fetchedPlaylists, err := httpClient.Get("https://api.spotify.com/v1/browse/featured-playlists")
+	defer fetch.Body.Close()
+
+	bodyBytes, err := io.ReadAll(fetch.Body)
 	if err != nil {
-		log.Fatalf("error retrieving playlist data: %v", err)
-	}
-	defer fetchedPlaylists.Body.Close()
-	bodyBytes, err := io.ReadAll(fetchedPlaylists.Body)
-	if err != nil {
-		log.Fatalf("Failed to read response body: %v", err)
-	}
-	var response models.FeaturedPlaylistsResponse
-	if err := json.Unmarshal(bodyBytes, &response); err != nil {
-		log.Fatalf("Error unmarshalling JSON: %v", err)
+		return nil, fmt.Errorf("failed to read response body: %v", err)
 	}
 
-	for _, playlist := range response.Playlists.Items {
-		fmt.Println(playlist)
-		fmt.Println(playlist.Images[0].URL)
+	var playlists models.FeaturedPlaylistsResponse
+	if err := json.Unmarshal(bodyBytes, &playlists); err != nil {
+		return nil, fmt.Errorf("error unmarshalling JSON: %v", err)
 	}
-	//bodyString := string(bodyBytes)
-	//log.Println("featured playlists:", bodyString)
+
+	return playlists.Playlists.Items, nil
 }
