@@ -18,27 +18,27 @@ function useFetchFromEndpoint(endpoint) {
         .then(setData)
         .catch(setError);
     }, [endpoint]);
-
+    console.log(error)
     return { data, error };
 }
 
 function HomePage() {
     const { data: playlists, error } = useFetchFromEndpoint('api/playlists');
-    return (<body class={`flex h-screen text-white overflow-hidden ${styles.background_container}`}>
-        <aside class={`w-1/6 flex flex-col items-center px-4 py-8 bg-gray-900`}>
-            <div class={`flex flex-col h-full justify-between`}>
+    return (<body className={`flex h-screen text-white overflow-hidden ${styles.background_container}`}>
+        <aside className={`w-1/6 flex flex-col items-center px-4 py-8 bg-gray-900`}>
+            <div className={`flex flex-col h-full justify-between`}>
                 <div>
-                    <div class="mb-8">
+                    <div className="mb-8">
                         <img src={logoPath} alt="Simba Logo"></img>
                     </div>
-                    <div class={`flex flex-col gap-2`}>
-                        <button class="space-x-2 text-left hover:bg-gray-700 p-2 rounded flex">
+                    <div className={`flex flex-col gap-2`}>
+                        <button className="space-x-2 text-left hover:bg-gray-700 p-2 rounded flex">
                             <Home></Home>
                             <span>Home</span></button>
-                        <button class="space-x-2 text-left hover:bg-gray-700 p-2 rounded flex">
+                        <button className="space-x-2 text-left hover:bg-gray-700 p-2 rounded flex">
                             <Search></Search>
                             <span>Search</span></button>
-                        <button class="space-x-2 text-left hover:bg-gray-700 p-2 rounded flex">
+                        <button className="space-x-2 text-left hover:bg-gray-700 p-2 rounded flex">
                             <Library></Library>
                             <span>Your Library</span></button>
                     </div>
@@ -46,16 +46,26 @@ function HomePage() {
             </div>
         </aside>
 
-        <div class="flex-grow p-8">
-            <div class="bg-gray-800 p-4 rounded-lg">Main content</div>
+        <div className="flex-grow p-8">
+            <div className="bg-gray-800 p-4 rounded-lg">
+                {error && <div>Error fetching playlists: {error.message}</div>}
+                {playlists && playlists.map((playlist, index) => (
+                    <div key={index} className="mb-4">
+                        {playlist.images && playlist.images[0] && (
+                            <img src={playlist.images[0].URL} alt={playlist.name} className="w-48 h-48" />
+                        )}
+                        <h3>{playlist.name}</h3>
+                    </div>
+                ))}
+            </div>
         </div>
 
-        <div class="absolute bottom-0 left-0 right-0 flex items-center justify-between bg-gray-800 h-20 px-8">
+        <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between bg-gray-800 h-20 px-8">
             <div>Playing now...</div>
             <button>
                 <PlayIcon></PlayIcon>
             </button>
-            <div class="flex justify-between"><Volume> </Volume>
+            <div className="flex justify-between"><Volume> </Volume>
                 <input type="range" min="1" max="100" id="input" style={styles.input}>
                 </input></div>
         </div>
