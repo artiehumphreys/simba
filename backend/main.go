@@ -12,6 +12,7 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
+	"github.com/rs/cors"
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
 	"golang.org/x/oauth2/clientcredentials"
 )
@@ -21,11 +22,13 @@ func main() {
 	router.GET("/api/playlists", PlaylistsHandler)
 
 	log.Println("Server starting on http://localhost:8080/")
-	http.ListenAndServe(":8080", router)
+	corsHandler := cors.Default().Handler(router)
+
+	http.ListenAndServe(":8080", corsHandler)
 }
 
 func spotifyClient() (*http.Client, error) {
-	if err := godotenv.Load("../../../../.env"); err != nil {
+	if err := godotenv.Load("../.env"); err != nil {
 		log.Printf("Error loading .env file: %v", err)
 		return nil, err
 	}

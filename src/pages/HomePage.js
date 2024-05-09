@@ -18,7 +18,7 @@ function useFetchFromEndpoint(endpoint) {
         .then(setData)
         .catch(setError);
     }, [endpoint]);
-    console.log(error)
+    console.log(data)
     return { data, error };
 }
 
@@ -46,13 +46,13 @@ function HomePage() {
             </div>
         </aside>
 
-        <div className="flex-grow p-8">
+        <div className="flex-grow p-8 overflow-auto">
             <div className="bg-gray-800 p-4 rounded-lg">
                 {error && <div>Error fetching playlists: {error.message}</div>}
                 {playlists && playlists.map((playlist, index) => (
                     <div key={index} className="mb-4">
                         {playlist.images && playlist.images[0] && (
-                            <img src={playlist.images[0].URL} alt={playlist.name} className="w-48 h-48" />
+                            <img src={playlist.images[0].url} alt={playlist.name} className="w-48 h-48" />
                         )}
                         <h3>{playlist.name}</h3>
                     </div>
