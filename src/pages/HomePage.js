@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PauseIcon from '../icons/PauseIcon';
 import PlayIcon from '../icons/PlayIcon';
 import Home from '../icons/Home';
@@ -8,8 +8,22 @@ import Volume from '../icons/Volume';
 import styles from '../css/HomePage.module.css';
 const logoPath = process.env.PUBLIC_URL + '/simba_logo.png';
 
+function useFetchFromEndpoint(endpoint) {
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        fetch(`http://localhost:8080/${endpoint}`)
+        .then(response => response.json())
+        .then(setData)
+        .catch(setError);
+    }, [endpoint]);
+
+    return { data, error };
+}
 
 function HomePage() {
+    const { data: playlists, error } = useFetchFromEndpoint('api/playlists');
     return (<body class={`flex h-screen text-white overflow-hidden ${styles.background_container}`}>
         <aside class={`w-1/6 flex flex-col items-center px-4 py-8 bg-gray-900`}>
             <div class={`flex flex-col h-full justify-between`}>
