@@ -6,4 +6,6 @@ import (
 	"simba/go-service/pkg/models"
 )
 
-func fetchFeaturedSongs(playlists []models.Playlist, client *http.Client) ([]models.Song, error)
+func fetchFeaturedSongs(playlists []models.Playlist, client *http.Client) ([]models.Song, error) {
+	return nil, nil
+}
