@@ -22,6 +22,7 @@ function useFetchFromEndpoint(endpoint) {
 }
 
 function fetchTracks(playlistId) {
+    console.log(`Fetching tracks for playlist ID: ${playlistId}`);
     fetch(`http://localhost:8080/api/playlists/${playlistId}/songs`)
         .then(response => response.json())
         .then(data => {
@@ -61,7 +62,7 @@ function HomePage() {
             {error && <div className="text-red-500">Error fetching playlists: {error.message}</div>}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {playlists && playlists.map((playlist, index) => (
-                    <div key={index} className="bg-gray-800 p-4 rounded-lg cursor-pointer transform transition duration-200 hover:scale-105 w-full md:w-auto" onClick={() => fetchTracks(`api/playlists/${playlist.ID}/songs`)}>
+                    <div key={index} className="bg-gray-800 p-4 rounded-lg cursor-pointer transform transition duration-200 hover:scale-105 w-full md:w-auto" onClick={() => fetchTracks(playlist.id)}>
                         {playlist.images && playlist.images[0] && (
                             <img src={playlist.images[0].url} alt={playlist.name}
                                  className="w-full aspect-square object-cover rounded-lg" />
