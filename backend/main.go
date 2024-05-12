@@ -10,6 +10,8 @@ import (
 
 	spotifyapi "simba/go-service/pkg/spotifyAPI"
 
+	"simba/go-service/pkg/models"
+
 	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
 	"github.com/rs/cors"
@@ -20,6 +22,7 @@ import (
 func main() {
 	router := httprouter.New()
 	router.GET("/api/playlists", PlaylistsHandler)
+	router.GET("/api/playlists/:id/songs", SongsHandler)
 
 	log.Println("Server starting on http://localhost:8080/")
 	corsHandler := cors.Default().Handler(router)
@@ -61,4 +64,22 @@ func PlaylistsHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Param
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(playlists)
+}
+
+func SongsHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	client, err := spotifyClient()
+	if err != nil {
+		http.Error(w, "Failed to create Spotify client: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	playlistID := ps.ByName("id")
+	playlist := models.Playlist{ID: playlistID}
+	songs, err := spotifyapi.FetchPlaylistSongs(playlist, client)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(songs)
 }
