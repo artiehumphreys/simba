@@ -15,6 +15,7 @@ type Playlist struct {
 	Href        string  `json:"href"`
 	Images      []Image `json:"images"`
 	Tracks      Tracks  `json:"tracks"`
+	ID          string  `json:"id"`
 }
 
 type Image struct {
