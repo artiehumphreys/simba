@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PauseIcon from '../icons/PauseIcon';
-import PlayIcon from '../icons/PlayIcon';
-import Volume from '../icons/Volume';
+import Footer from '../components/Footer';
 import SideBar from '../components/SideBar';
 import styles from '../css/HomePage.module.css';
 
@@ -29,7 +27,6 @@ function fetchTracks(playlistId) {
         });
 }
 
-
 function HomePage() {
     const { data: playlists, error } = useFetchFromEndpoint('api/playlists');
     return (<body className={`flex h-screen text-white overflow-hidden ${styles.background_container}`}>
@@ -52,15 +49,8 @@ function HomePage() {
             </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between bg-gray-800 h-20 px-8">
-            <div>Playing now...</div>
-            <button>
-                <PlayIcon></PlayIcon>
-            </button>
-            <div className="flex justify-between"><Volume> </Volume>
-                <input type="range" min="1" max="100" id="input" style={styles.input}>
-                </input></div>
-        </div>
+
+        <Footer></Footer>
 
     </body >);
 }
