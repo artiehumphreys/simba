@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PauseIcon from '../icons/PauseIcon';
 import PlayIcon from '../icons/PlayIcon';
-import Home from '../icons/Home';
-import Search from '../icons/Search';
-import Library from '../icons/Library';
 import Volume from '../icons/Volume';
+import SideBar from '../components/SideBar';
 import styles from '../css/HomePage.module.css';
-const logoPath = process.env.PUBLIC_URL + '/simba_logo.png';
 
 function useFetchFromEndpoint(endpoint) {
     const [data, setData] = useState(null);
@@ -22,7 +19,6 @@ function useFetchFromEndpoint(endpoint) {
 }
 
 function fetchTracks(playlistId) {
-    console.log(`Fetching tracks for playlist ID: ${playlistId}`);
     fetch(`http://localhost:8080/api/playlists/${playlistId}/songs`)
         .then(response => response.json())
         .then(data => {
@@ -38,24 +34,7 @@ function HomePage() {
     const { data: playlists, error } = useFetchFromEndpoint('api/playlists');
     return (<body className={`flex h-screen text-white overflow-hidden ${styles.background_container}`}>
         <aside className={`w-1/6 flex flex-col items-center px-4 py-8 bg-gray-900`}>
-            <div className={`flex flex-col h-full justify-between`}>
-                <div>
-                    <div className="mb-8">
-                        <img src={logoPath} alt="Simba Logo"></img>
-                    </div>
-                    <div className={`flex flex-col gap-2`}>
-                        <button className="space-x-2 text-left hover:bg-gray-700 p-2 rounded flex">
-                            <Home></Home>
-                            <span>Home</span></button>
-                        <button className="space-x-2 text-left hover:bg-gray-700 p-2 rounded flex">
-                            <Search></Search>
-                            <span>Search</span></button>
-                        <button className="space-x-2 text-left hover:bg-gray-700 p-2 rounded flex">
-                            <Library></Library>
-                            <span>Your Library</span></button>
-                    </div>
-                </div>
-            </div>
+            <SideBar></SideBar>
         </aside>
 
         <div className="flex-grow w-10/12 p-8 overflow-y-auto mb-20">
