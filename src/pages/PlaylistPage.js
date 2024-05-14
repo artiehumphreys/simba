@@ -31,7 +31,7 @@ function PlaylistPage(){
             {tracks && tracks.map((track, index) => (
                 <div key={index} className="bg-gray-800 p-4 rounded-lg cursor-pointer transform transition duration-200 hover:scale-105 flex items-center justify-between w-full md:w-auto">
                     <div className="flex items-center space-x-4">
-                        <img src={track.album.images[0].url} alt={track.name}
+                        <img src={track.album.images[0].url} alt={track.album.name}
                             className="w-12 h-12 object-cover rounded-lg" />
                         <div className="flex flex-col">
                             <h3 className="text-white text-lg leading-tight">{track.name}</h3>
