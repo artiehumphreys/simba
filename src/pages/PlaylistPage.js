@@ -26,10 +26,14 @@ function PlaylistPage(){
             </aside>
             <div className="flex-grow w-10/12 p-8 overflow-y-auto mb-20">
             {error && <div className="text-red-500">Error fetching tracks: {error.message}</div>}
+
                 <div className="grid grid-rows-1 gap-4">
                 {tracks && tracks.map((track, index) => (
                     <div key={index} className="bg-gray-800 p-4 rounded-lg cursor-pointer transform transition duration-200 hover:scale-105 w-full md:w-auto">
-                        <h3 className="mt-2 text-center text-white">{track.name}</h3>
+                        <h3 className="mt-2 text-left text-white">{track.name}</h3>
+                        <span className='text-white'>
+                            {track.artists && track.artists.map(artist => artist.name).join(', ')}
+                        </span>
                     </div>
                 ))}
                 </div>
