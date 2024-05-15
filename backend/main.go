@@ -22,7 +22,7 @@ import (
 func main() {
 	router := httprouter.New()
 	router.GET("/api/playlists", PlaylistsHandler)
-	router.GET("/api/playlists/:id/songs", SongsHandler)
+	router.GET("/api/playlists/:id/tracks", SongsHandler)
 
 	log.Println("Server starting on http://localhost:8080/")
 	corsHandler := cors.Default().Handler(router)

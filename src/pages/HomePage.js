@@ -5,7 +5,7 @@ import styles from '../css/HomePage.module.css';
 import { useNavigate } from 'react-router-dom';
 
 
-function useFetchFromEndpoint(endpoint) {
+function useFetchPlaylists(endpoint) {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
 
@@ -20,7 +20,7 @@ function useFetchFromEndpoint(endpoint) {
 
 function HomePage() {
     const navigate = useNavigate();
-    const { data: playlists, error } = useFetchFromEndpoint('api/playlists');
+    const { data: playlists, error } = useFetchPlaylists('api/playlists');
     return (<body className={`flex h-screen text-white overflow-hidden ${styles.background_container}`}>
         <aside className={`w-1/6 flex flex-col items-center px-4 py-8 bg-gray-900`}>
             <SideBar></SideBar>

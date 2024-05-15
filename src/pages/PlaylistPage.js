@@ -8,7 +8,7 @@ function useFetchTracks(playlistId) {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     useEffect(() => {
-        fetch(`http://localhost:8080/api/playlists/${playlistId}/songs`)
+        fetch(`http://localhost:8080/api/playlists/${playlistId}/tracks`)
             .then(response => response.json())
             .then(setData)
             .catch(setError);
@@ -18,7 +18,7 @@ function useFetchTracks(playlistId) {
 
 function PlaylistPage(){
     const { id } = useParams();
-    const { data: tracks, error } = useFetchTracks(id);
+    const { data: tracks, error } = useFetchTracks(`'api/playlists/${id}/tracks'`);
     return(
         <body className={`flex h-screen text-white overflow-hidden ${styles.background_container}`}>
             <aside className={`w-1/6 flex flex-col items-center px-4 py-8 bg-gray-900`}>
