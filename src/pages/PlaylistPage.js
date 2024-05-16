@@ -15,6 +15,27 @@ function useFetchTracks(playlistId) {
         }, [playlistId]);
         return { data, error };
 }
+// https://github.com/spotify/spotify-web-playback-sdk-example/blob/main/src/WebPlayback.jsx
+function useSpotifySDK(trackId){
+    const [is_paused, setPaused] = useState(false);
+    const [is_active, setActive] = useState(false);
+    const [player, setPlayer] = useState(null);
+    const [current_track, setTrack] = useState(null);
+    useEffect(() => {
+
+        const script = document.createElement("script");
+        script.src = "https://sdk.scdn.co/spotify-player.js";
+        script.async = true;
+
+        document.body.appendChild(script);
+
+        window.onSpotifyWebPlaybackSDKReady = () => {
+            
+        };
+
+    }, []);
+
+}
 
 function PlaylistPage(){
     const { id } = useParams();
