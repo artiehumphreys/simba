@@ -73,7 +73,7 @@ function useFetchTracks(endpoint) {
 function playPreview(trackId) {
     const audio = document.getElementById(trackId);
     if (audio) {
-      audio.play();
+        audio.play();
     }
   }
 
@@ -106,9 +106,13 @@ function PlaylistPage(){
                         <span className="text-slate-500 text-s">
                             {Math.floor(track.duration_ms / 60000)}:{(Math.floor((track.duration_ms % 60000) / 1000)).toString().padStart(2, '0')}
                         </span>
-                        <audio id={`audio-${index}`}>
-                            <source src={track.preview_url} type="audio/mpeg"></source>
-                        </audio>
+                        {track.preview_url ? (
+                            <audio id={`audio-${index}`}>
+                                <source src={track.preview_url} type="audio/mpeg"></source>
+                            </audio>
+                        ) : (
+                            <span className="text-red-500 text-s ml-4">No preview available</span>
+                        )}
                     </div>
                 </div>
             ))}
