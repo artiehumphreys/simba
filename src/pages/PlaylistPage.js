@@ -4,6 +4,9 @@ import SideBar from '../components/SideBar';
 import styles from '../css/HomePage.module.css';
 import { useParams } from 'react-router-dom';
 
+var currentSong = null;
+var isSongPlaying = false;
+
 function useFetchTracks(endpoint) {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
@@ -71,10 +74,16 @@ function useFetchTracks(endpoint) {
 // }
 
 function playPreview(trackId) {
-    const audio = document.getElementById(trackId);
-    if (audio) {
-        audio.play();
+    const songToPlay = document.getElementById(trackId);
+    if (isSongPlaying){
+        currentSong.pause();
+        if (currentSong === songToPlay){
+            return;
+        }   
     }
+    songToPlay.play();
+    currentSong = songToPlay;
+    isSongPlaying = true;
   }
 
 function PlaylistPage(){
@@ -101,18 +110,18 @@ function PlaylistPage(){
                             </span>
                         </div>
                     </div>
-                    <div className="flex items-center">
-                        <span className="text-slate-500 text-s mr-10">{track.album && track.album.name}</span>
-                        <span className="text-slate-500 text-s">
-                            {Math.floor(track.duration_ms / 60000)}:{(Math.floor((track.duration_ms % 60000) / 1000)).toString().padStart(2, '0')}
-                        </span>
-                        {track.preview_url ? (
+                    {track.preview_url ? (
                             <audio id={`audio-${index}`}>
                                 <source src={track.preview_url} type="audio/mpeg"></source>
                             </audio>
                         ) : (
                             <span className="text-red-500 text-s ml-4">No preview available</span>
                         )}
+                    <div className="flex items-center">
+                        <span className="text-slate-500 text-s mr-10">{track.album && track.album.name}</span>
+                        <span className="text-slate-500 text-s">
+                            {Math.floor(track.duration_ms / 60000)}:{(Math.floor((track.duration_ms % 60000) / 1000)).toString().padStart(2, '0')}
+                        </span>
                     </div>
                 </div>
             ))}

@@ -1,7 +1,6 @@
 import Home from '../icons/Home';
 import Search from '../icons/Search';
 import Library from '../icons/Library';
-import styles from '../css/LoginForm.module.css';
 import { useNavigate } from 'react-router-dom';
 
 const logoPath = process.env.PUBLIC_URL + '/simba_logo.png';
